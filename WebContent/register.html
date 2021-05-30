@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Register</title>
+	<style>
+		
+
+	</style>
+</head>
+<body>
+
+<div>	
+	<form action="register2.jsp" method="POST" >
+	  <h2>회원가입</h2>
+	  <p>
+	    <label>사용자 이름 <span>:</span></label>
+	    <input type="text" placeholder="이름을 입력하세요" name="userName"  id="userName" required>
+	  </p>
+	 
+	  <p>
+	    <label>이메일 주소 <span>:</span></label>
+	    <input type="email" placeholder="이메일 주소를 입력하세요" name="userEmail"  id="userEmail" required>
+	  </p>
+	 
+	  <p>
+	    <label>비밀번호 <span>:</span></label>
+	    <input type="password" placeholder="비밀번호를 입력하세요"  name="userPassword" id="userPassword" required>
+	  </p>
+	 
+	  <p>
+	    <input type="submit" name="submitButton" value="Submit" id="submitButton">
+	    <input type="reset" name="resetButton" value="Clear" id="resetButton">
+	  </p>
+
+	</form>
+</div>
+
+<!-- Password Validation -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+     $("#submitButton").click(function () {
+            var password = $("#password").val();
+            var confirmPassword = $("#confirmPassword").val();
+            if (password != confirmPassword) {
+                alert("Passwords do not match.");
+                $("#confirmPassword").focus();
+                return false;
+            }
+            return true;
+    });
+       
+</script>
+</body>
+</html>

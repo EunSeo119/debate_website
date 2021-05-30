@@ -138,6 +138,35 @@ body {
 					<td style="width: 160.8px;">&nbsp;
 						<div class="user_info" style="position: relative; top: -150px;">
 
+							<%
+								String userID = null;
+								if (session.getAttribute("userID") != null) {
+									userID = (String) session.getAttribute("userID");
+							%>
+
+							<div id="id01">
+
+								<form class="modal-content animate" action="login2.jsp"
+									method="post">
+
+
+
+									<div class="container">
+										<h2 align="center"><%=userID%>님이 로그인 되었습니다.
+										</h2>
+										<a href="logout.jsp">로그아웃</a>
+
+									</div>
+									<label> <span id="registerLink"> <a
+											href="./register.html"> 회원가입</a>
+									</span>
+									</label>
+
+								</form>
+							</div>
+							<%
+								} else {
+							%>
 							<div id="id01">
 
 								<form class="modal-content animate" action="login2.jsp"
@@ -164,6 +193,10 @@ body {
 
 								</form>
 							</div>
+							<%
+								}
+							%>
+
 
 
 						</div>
