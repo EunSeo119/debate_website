@@ -70,7 +70,7 @@ body {
 	<div class="nav">
 		<div class="nav_wrap">
 			<ul>
-				<li><a href="">토론</a></li>
+				<li><a href="bbs.jsp">토론</a></li>
 				<li><a href="">정보공유</a></li>
 				<li><a href="">랭킹</a></li>
 			</ul>
