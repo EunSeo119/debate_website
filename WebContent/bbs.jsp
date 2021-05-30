@@ -305,7 +305,7 @@ body {
 									<div class="container">
 										<label for="userNameOrEmail"><b>사용자 이름</b></label> <input
 											type="text" placeholder="이름을 입력하여 주세요" name="userName"
-											required> <br /> <label for="password"><b>비밀번호</b></label><br/>
+											required> <br /> <label for="password"><b>비밀번호</b></label>
 										<input type="password" placeholder="비밀번호를 입력하여 주세요"
 											name="password" required> <br />
 										<button type="submit">로그인</button>
