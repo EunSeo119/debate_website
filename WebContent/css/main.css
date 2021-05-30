@@ -215,8 +215,7 @@ html ul.tabs li.active, html ul.tabs li.active a:hover {
 
 div {
 	width: 100%;
-	height: 500px;
-	border: 1px solid #003458;
+	
 }
 
 div.left {
