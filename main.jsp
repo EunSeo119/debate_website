@@ -40,6 +40,7 @@ body {
 
 	});
 </script>
+
 </head>
 
 
@@ -130,7 +131,49 @@ body {
 	<br />
 	<div style="width: 20%; float: right; box-sizing: border-box;">
 
-		
+		<table style="height: 400px; border-color: gold; width: 250px;"
+			border="orange" width="170">
+			<tbody>
+				<tr>
+					<td style="width: 160.8px;">&nbsp;
+						<div class="user_info" style="position: relative; top: -150px;">
+
+							<div id="id01">
+
+								<form class="modal-content animate" action="login2.jsp"
+									method="post" style="position: relative; top: 100px;">
+
+									<div class="imgcontainer">
+										<img src="./image/my_page.png" alt="unlock" class="unlock">
+										<h2>로그인 해 주세요</h2>
+									</div>
+
+									<div class="container">
+										<label for="userNameOrEmail"><b>사용자 이름</b></label> <input
+											type="text" placeholder="이름을 입력하여 주세요" name="userName"
+											required> <br /> <label for="password"><b>비밀번호</b></label>
+										<input type="password" placeholder="비밀번호를 입력하여 주세요"
+											name="password" required> <br />
+										<button type="submit">로그인</button>
+										<br />
+									</div>
+									<label> <span id="registerLink"> <a
+											href=""> 회원가입</a>
+									</span>
+									</label>
+
+								</form>
+							</div>
+
+
+
+						</div>
+					</td>
+
+				</tr>
+
+			</tbody>
+		</table>
 
 
 	</div>
