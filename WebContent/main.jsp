@@ -44,12 +44,17 @@ body {
 </head>
 
 
-<body bgcolor="#FAEBD7">
+<body>
 
 	<div class="header">
 		<div class="header_wrap">
 			<div class="title">
-				<p>토요일은 마주앉아 토론하자</p>
+				<span style = "font-size: 25px; font-weight: bold; color: red;">토</span>
+				<span style = "font-size: 20px">요일은 </span>
+				<span style = "font-size: 25px; font-weight: bold; color: red;">마</span>
+				<span style = "font-size: 20px">주앉아 </span>
+				<span style = "font-size: 25px; font-weight: bold; color: red;">토</span>
+				<span style = "font-size: 20px">론하자</span>
 			</div>
 			<div class="serch"
 				style="position: relative; top: 10px; left: 132px;">
@@ -71,67 +76,34 @@ body {
 		<div class="nav_wrap">
 			<ul>
 				<li><a href="bbs.jsp">토론</a></li>
-				<li><a href="">정보공유</a></li>
-				<li><a href="">랭킹</a></li>
+				<li><a href="">커뮤니티</a></li>
+				<li><a href="">주제 신청</a></li>
+				<li><a href="">랭킹</a><li>
+				<li><a href="competition_info.jsp">토론 대회</a><li>
+				<li><a href="">토마토</a><li>
 			</ul>
 		</div>
 	</div>
 
 	<br />
-
-	<div style="width: 80%; float: left; box-sizing: border-box;">
-		<div class="tab_wrap">
-			<ul class="tabs">
-				<li><a href="#tab1">사이트 소개</a></li>
-				<li><a href="#tab2">이용 방법</a></li>
-				<li><a href="#tab3">추천주제</a></li>
-			</ul>
-			<div class="tab_container" style="height: 500px;">
-				<div id="tab1" class="tab_content">
-					<!--내용채우기-->
-					<div class="parent"
-						style="width: 100%; height: 455px; background: #585858;">
-						<div class="child1" style="background: #ffeba2;">
-							<p>사이트 소개</p>
-						</div>
-						<div class="child1" style="background: #ffeba2de;">
-							<p>..</p>
-						</div>
-						<div class="child1" style="background: #ffeba2;">
-							<p>..</p>
-						</div>
-					</div>
-				</div>
-				<div id="tab2" class="tab_content">
-					<!--여개 내용-->
-					<div class="parent"
-						style="width: 100%; height: 455px; background: #585858;">
-
-
-						<div class="child2" style="background: #ffeba2;">
-							<p>..</p>
-						</div>
-						<div class="child2" style="background: #ffeba2de;">
-							<p>...</p>
-						</div>
-						<div class="child2" style="background: #ffeba2;">
-							<p>..</p>
-						</div>
-					</div>
-				</div>
-				<div id="tab3" class="tab_content">
-					<!--채우기-->
-
-					<p>..</p>
-				</div>
-			</div>
-		</div>
+	<div class="main_content">
+	<div class = "content_wrap" style="margin: 0 auto; float:left;">
+	<div class="hot_content">
+	<ul>
+	<li><div>토론글 하나 넣기</div></li>
+	<li><div>토론글 하나 넣기</div></li>
+	<li><div>토론글 하나 넣기</div></li>
+	</ul>
+	</div>
+	<div class ="guide">
+	<p>이용방법 안내 넣기</p>
+	</div>
 	</div>
 	<br />
 	<br />
-	<div style="width: 20%; float: right; box-sizing: border-box;">
+	<div style="width: 20%; float: right; box-sizing: border-box; ">
 
-		<table style="height: 400px; border-color: gold; width: 250px;"
+		<table style="height: 400px; border-color: gray; width: 250px;"
 			border="orange" width="170">
 			<tbody>
 				<tr>
@@ -208,6 +180,7 @@ body {
 		</table>
 
 
+	</div>
 	</div>
 
 </body>
