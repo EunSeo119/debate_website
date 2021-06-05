@@ -369,7 +369,24 @@ body {
 
 					class="btn btn-success btn-arrow-left">이전</a>
 
-	
+				<%
+
+					}
+
+					//if (bbsDAO.nextPage(pageNumber)) {
+
+				%>
+
+				<a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>"
+
+					class="btn btn-success btn-arrow-left">다음</a>
+
+				<%
+
+					//}
+
+				%>
+
 	
 
 	
