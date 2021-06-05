@@ -49,12 +49,14 @@ body {
 	<div class="header">
 		<div class="header_wrap">
 			<div class="title">
-				<span style = "font-size: 25px; font-weight: bold; color: red;">토</span>
-				<span style = "font-size: 20px">요일은 </span>
-				<span style = "font-size: 25px; font-weight: bold; color: red;">마</span>
-				<span style = "font-size: 20px">주앉아 </span>
-				<span style = "font-size: 25px; font-weight: bold; color: red;">토</span>
-				<span style = "font-size: 20px">론하자</span>
+				<a href="main.jsp">
+				<span style="font-size: 25px; font-weight: bold; color: red;">토</span>
+				<span style="font-size: 20px">요일은 </span> <span
+					style="font-size: 25px; font-weight: bold; color: red;">마</span> <span
+					style="font-size: 20px">주앉아 </span> <span
+					style="font-size: 25px; font-weight: bold; color: red;">토</span> <span
+					style="font-size: 20px">론하자</span>
+					</a>
 			</div>
 			<div class="serch"
 				style="position: relative; top: 10px; left: 132px;">
@@ -78,7 +80,7 @@ body {
 				<li><a href="bbs.jsp">토론</a></li>
 				<li><a href="">커뮤니티</a></li>
 				<li><a href="">주제 신청</a></li>
-				<li><a href="">랭킹</a><li>
+				<li><a href="chart.jsp">랭킹</a><li>
 				<li><a href="competition_info.jsp">토론 대회</a><li>
 				<li><a href="">토마토</a><li>
 			</ul>

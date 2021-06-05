@@ -35,7 +35,7 @@ public class BbsDAO {
 
 			try {
 
-				String dbURL = "jdbc:mysql://localhost:3306/bbs?&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+				String dbURL = "jdbc:mysql://localhost:3306/tomato?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";;
 
 				String dbID = "root";
 
@@ -157,9 +157,15 @@ public class BbsDAO {
 
 			}
 			
+			
+			
+			
+
+
+			
 			public ArrayList<Bbs> getList(int pageNumber){ 
 
-				String SQL = "SELECT * FROM BBS WHERE bbsID < ? bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+				String SQL = "SELECT * FROM BBS WHERE bbsID < ? and bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
 
 				ArrayList<Bbs> list = new ArrayList<Bbs>();
 
@@ -200,7 +206,83 @@ public class BbsDAO {
 				return list; 
 
 			}
+			
+			//10 단위 페이징 처리를 위한 함수
+
+			public boolean nextPage (int pageNumber) {
+
+				String SQL = "SELECT * FROM BBS WHERE bbsID < ? and bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+
+				ArrayList<Bbs> list = new ArrayList<Bbs>();
+
+				try {
+
+					PreparedStatement pstmt = conn.prepareStatement(SQL);
+
+					pstmt.setInt(1, getNext() - (pageNumber -1) * 10);
+
+					rs = pstmt.executeQuery();
+
+					if (rs.next()) {
+
+						return true;
+
+					}
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+
+				}
+
+				return false; 		
+
+			}
+			
+			public Bbs getBbs(int bbsID) {
+
+				String SQL = "SELECT * FROM BBS WHERE bbsID = ?";
+
+				try {
+
+					PreparedStatement pstmt = conn.prepareStatement(SQL);
+
+					pstmt.setInt(1, bbsID);
+
+					rs = pstmt.executeQuery();
+
+					if (rs.next()) {
+
+						Bbs bbs = new Bbs();
+
+						bbs.setBbsID(rs.getInt(1));
+
+						bbs.setBbsTitle(rs.getString(2));
+
+						bbs.setUserID(rs.getString(3));
+
+						bbs.setBbsDate(rs.getString(4));
+
+						bbs.setBbsContent(rs.getString(5));
+
+						bbs.setBbsAvailable(rs.getInt(6));
 
 
+
+						return bbs;
+
+					}
+
+				} catch (Exception e) {
+
+					e.printStackTrace();
+
+				}
+
+				return null;
+
+
+
+			}
 	}
 

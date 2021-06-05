@@ -11,6 +11,11 @@
 	<%@ page import="bbs.Bbs"%>
 
 	<%@ page import="java.util.ArrayList"%>
+	
+
+
+
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,17 +105,7 @@ body {
 
 <%
 
-			//로긴한사람이라면	 userID라는 변수에 해당 아이디가 담기고 그렇지 않으면 null값
-
-			String userID = null;
-
-			if (session.getAttribute("userID") != null) {
-
-				userID = (String) session.getAttribute("userID");
-
-	
-
-			}
+			
 
 	
 
@@ -125,12 +120,48 @@ body {
 				pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 
 			}
+			
+			//로긴한사람이라면	 userID라는 변수에 해당 아이디가 담기고 그렇지 않으면 null값
+
+			String userID = null;
+
+			if (session.getAttribute("userID") != null) {
+
+				userID = (String) session.getAttribute("userID");
+
+		
+
+			}
+
+			int bbsID = 0;
+
+			if (request.getParameter("bbsID") != null) {
+
+				bbsID = Integer.parseInt(request.getParameter("bbsID"));
+
+			}
+
+			if (bbsID == 0) {
+
+				PrintWriter script = response.getWriter();
+
+				script.println("<script>");
+
+				script.println("alert('유효하지 않은 글 입니다.')");
+
+				script.println("location.href = 'bbs.jsp'");
+
+				script.println("</script>");
+
+			}
+
+			Bbs bbs = new BbsDAO().getBbs(bbsID);
 
 		%>
 
 	<div class="header">
 		<div class="header_wrap">
-			<div class="title">
+			<div class="title">s
 				<a href="main.jsp">
 				<span style="font-size: 25px; font-weight: bold; color: red;">토</span>
 				<span style="font-size: 20px">요일은 </span> <span
@@ -235,9 +266,9 @@ body {
 
 		<!-- 게시판 -->
 
-		<div class="container">
+	<div class="container">
 
-			<div class="row">
+		<div class="row">
 
 				<table class="table table-striped"
 
@@ -245,59 +276,86 @@ body {
 
 					<thead>
 
+						
+						
 						<tr>
 
-							<th style="background-color: #eeeeee; text-align: center;">번호</th>
+							<th colspan="3"
 
-							<th style="background-color: #eeeeee; text-align: center;">제목</th>
-
-							<th style="background-color: #eeeeee; text-align: center;">작성자</th>
-
-							<th style="background-color: #eeeeee; text-align: center;">작성일</th>
+								style="background-color: #eeeeee; text-align: center;">글 보기 </th>
 
 						</tr>
+						
+						
 
 					</thead>
 
 					<tbody>
 
-						<%
-
-							BbsDAO bbsDAO = new BbsDAO();
-
-							ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-
-							for (int i = 0; i < list.size(); i++) {
-
-						%>
-
 						<tr>
 
-							<td><%=list.get(i).getBbsID()%></td>
+							<td style="width: 20%;"> 글 제목 </td>
 
-							<td><a href="view.jsp?bbsID=<%=list.get(i).getBbsID()%>"><%=list.get(i).getBbsTitle()%></a></td>
-
-							<td><%=list.get(i).getUserID()%></td>
-
-							<td><%=list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시"
-
-							+ list.get(i).getBbsDate().substring(14, 16) + "분"%></td>
+							<td colspan="2"><%= bbs.getBbsTitle() %></td>
 
 						</tr>
 
-	
+						<tr>
 
-						<%
+							<td>작성자</td>	
 
-							}
+							<td colspan="2"><%= bbs.getUserID() %></td>
 
-						%>
+						</tr>
+						
+						
 
-	
+						<tr>
+
+							<td>작성일</td>	
+
+							<td colspan="2"><%= bbs.getBbsDate().substring(0, 11) + bbs.getBbsDate().substring(11, 13) + "시"
+
+							+ bbs.getBbsDate().substring(14, 16) + "분"%></td>
+
+						</tr>
+
+						<tr>
+
+							<td>내용</td>	
+
+							<td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs.getBbsContent() %></td>
+
+						</tr>
+
 
 					</tbody>
 
-				</table>
+				</table>	
+
+				<a href = "bbs.jsp" class="btn btn-primary">목록</a>
+
+				
+
+				
+
+				<%
+
+				//글작성자 본인일시 수정 삭제 가능 
+
+					if(userID != null && userID.equals(bbs.getUserID())){
+
+				%>
+
+						<a href="update.jsp?bbsID=<%= bbs.getUserID() %>" class="btn btn-primary">수정</a>
+
+						<a href="delete.jsp?bbsID=<%= bbs.getUserID() %>" class="btn btn-primary">삭제</a>
+
+				<%					
+
+					}
+
+				%>
 
 				<!-- 페이지 넘기기 -->
 
@@ -311,24 +369,7 @@ body {
 
 					class="btn btn-success btn-arrow-left">이전</a>
 
-				<%
-
-					}
-
-					if (bbsDAO.nextPage(pageNumber)) {
-
-				%>
-
-				<a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>"
-
-					class="btn btn-success btn-arrow-left">다음</a>
-
-				<%
-
-					}
-
-				%>
-
+	
 	
 
 	
