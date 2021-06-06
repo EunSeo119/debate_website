@@ -82,7 +82,7 @@
 
 				Bbs2DAO Bbs2DAO = new Bbs2DAO();
 
-				int result = Bbs2DAO.write(bbs2.getBbs2Title(), userID);
+				int result = Bbs2DAO.write(bbs2.getBbs2Title(), userID, bbs2.getBbs2Content());
 
 				if (result == -1) {
 

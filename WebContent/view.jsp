@@ -38,6 +38,30 @@ body {
 
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          
+          ['찬성', 7],
+          ['반대',    2]
+        ]);
+
+        var options = {
+          title: '웹소과제하기'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
@@ -361,6 +385,14 @@ body {
 					}
 
 				%>
+				
+				
+				
+				
+				<!-- 찬성 반대 표시 차틍으ㅡㅡ으 -->
+				
+				
+				<div id="piechart" style="width: 300px; height: 200px;"></div>
 
 				
 <form method="post" action="re_writeAction.jsp">
@@ -383,7 +415,13 @@ body {
 
 						<tr>
 
-							<td><input type="text" class="form-control" placeholder="댓글내용" name="bbs2Title" maxlength="50"/></td>
+							<td><input type="text" class="form-control" placeholder="찬성 혹은 반대" name="bbs2Title" maxlength="50"/></td>
+
+						</tr>
+						
+						<tr>
+
+							<td><textarea class="form-control" placeholder="댓글내용" name="bbs2Content" maxlength="2048" style="height: 350px;"></textarea></td>
 
 						</tr>
 
@@ -415,6 +453,8 @@ body {
 
 							<th style="background-color: #eeeeee; text-align: center;">번호</th>
 
+							<th style="background-color: #eeeeee; text-align: center;">찬성 혹은 반대</th>
+							
 							<th style="background-color: #eeeeee; text-align: center;">댓글</th>
 
 							<th style="background-color: #eeeeee; text-align: center;">작성자</th>
@@ -442,6 +482,8 @@ body {
 							<td><%=list.get(i).getBbs2ID()%></td>
 
 							<td><a href="view.jsp?bbs2ID=<%=list.get(i).getBbs2ID()%>"><%=list.get(i).getBbs2Title()%></a></td>
+							
+							<td><a href="view.jsp?bbs2ID=<%=list.get(i).getBbs2ID()%>"><%=list.get(i).getBbs2Content()%></a></td>
 
 							<td><%=list.get(i).getUserID()%></td>
 

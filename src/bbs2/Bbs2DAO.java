@@ -119,7 +119,7 @@ public class Bbs2DAO {
 
 			//실제로 글을 작성하는 함수
 
-			public int write(String bbs2Title, String userID) { 
+			public int write(String bbs2Title, String userID, String userContent) { 
 
 				String SQL = "INSERT INTO BBS2 VALUES(?, ?, ?, ?, ?, ?)";
 
@@ -137,7 +137,7 @@ public class Bbs2DAO {
 
 					pstmt.setString(4, getDate());
 
-					pstmt.setString(5, "1");
+					pstmt.setString(5, userContent);
 
 					pstmt.setInt(6,1);
 
