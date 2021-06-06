@@ -15,83 +15,22 @@ body {
 }
 </style>
 
-
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-
-<script type="text/javascript" charset="utf-8">
-	$(document).ready(function() {
-
-		//page loads...
-		$(".tab_content").hide();
-		$("ul.tabs li:first").addClass("active").show();
-		$(".tab_content:first").show();
-
-		//Click Event
-		$("ul.tabs li").click(function() {
-
-			$("ul.tabs li").removeClass("active");
-			$(this).addClass("active");
-			$(".tab_content").hide();
-
-			var activeTab = $(this).find("a").attr("href");
-			$(activeTab).fadeIn();
-			return false;
-		});
-		
-		/*왼쪽메뉴만들기*/
-	      $('.more').click(function() {
-	         if ($('.more').hasClass('more')) {
-	            $('.more').addClass('close').removeClass('more');
-	            $('.board').css('visibility', 'visible');
-	         } else if ($('.close').hasClass('close')) {
-	            $('.close').addClass('more').removeClass('close');
-	            $('.board').css('visibility', 'hidden');
-	         }
-	      });
-
-	      $('#spreadBtn01').click(function() {
-	         if ($("#hiddenList01").is(":visible")) {
-	            $("#spreadBtn01").toggleClass("spread1 spread2");
-	            $("#hiddenList01").slideUp();
-	         } else {
-	            $("#spreadBtn01").toggleClass("spread2 spread1");
-	            $("#hiddenList01").slideDown();
-	         }
-	      });
-
-	      $('#spreadBtn02').click(function() {
-	         if ($("#hiddenList02").is(":visible")) {
-	            $("#spreadBtn02").toggleClass("spread1 spread2");
-	            $("#hiddenList02").slideUp();
-	         } else {
-	            $("#spreadBtn02").toggleClass("spread2 spread1");
-	            $("#hiddenList02").slideDown();
-	         }
-	      });
-
-	      $('#spreadBtn03').click(function() {
-	         if ($("#hiddenList03").is(":visible")) {
-	            $("#spreadBtn03").toggleClass("spread1 spread2");
-	            $("#hiddenList03").slideUp();
-	         } else {
-	            $("#spreadBtn03").toggleClass("spread2 spread1");
-	            $("#hiddenList03").slideDown();
-	         }
-	      });
-
-	});
-</script>
-
 </head>
 
 
-<body bgcolor="#FAEBD7">
+<body>
 
 	<div class="header">
 		<div class="header_wrap">
 			<div class="title">
-				<p>토요일은 마주앉아 토론하자</p>
+				<a href="main.jsp">
+				<span style="font-size: 25px; font-weight: bold; color: red;">토</span>
+				<span style="font-size: 20px">요일은 </span> <span
+					style="font-size: 25px; font-weight: bold; color: red;">마</span> <span
+					style="font-size: 20px">주앉아 </span> <span
+					style="font-size: 25px; font-weight: bold; color: red;">토</span> <span
+					style="font-size: 20px">론하자</span>
+					</a>
 			</div>
 			<div class="serch"
 				style="position: relative; top: 10px; left: 132px;">
@@ -113,11 +52,16 @@ body {
 		<div class="nav_wrap">
 			<ul>
 				<li><a href="bbs.jsp">토론</a></li>
-				<li><a href="">정보공유</a></li>
-				<li><a href="">랭킹</a></li>
+				<li><a href="">커뮤니티</a></li>
+				<li><a href="Topic.jsp">주제 신청</a></li>
+				<li><a href="chart.jsp">랭킹</a><li>
+				<li><a href="competition_info.jsp">토론 대회</a><li>
+				<li><a href="">토마토</a><li>
 			</ul>
 		</div>
 	</div>
+
+	
 
 	<br />
 	
@@ -172,14 +116,6 @@ body {
 
 
 
-                  <div style="text-align: right">
-                     <ul2> <li2>
-                     <a href="write.jsp">글쓰기1&nbsp</a></li2> <li2>
-                     <a href="">글쓰기2&nbsp</a></li2> <li2>
-                     <a href="">글쓰기3&nbsp</a></li2> <br />
-                     <br />
-                     </ul2>
-                  </div>
 
 
                </div>
@@ -192,40 +128,24 @@ body {
 		<div class="row">
 
 			<form method="post" action="writeAction.jsp">
+            <table width="500" border="3" bordercolor="lightgray" align="center">
 
-				<table class="table table-striped"
+						  
+   <font size="6" color="gray">글쓰기</font>
+    <tr>
+                 제 목
+             </tr>
+                <input name="board_subject" type="text" size="70" maxlength="100" value=""/>
+             
+        <tr>
+            <td id="title">
+                내 용
+            </td>
+            <td>
+                <textarea name="board_content" cols="72" rows="20"></textarea>            
+            </td>        
+        </tr>
 
-					style="text-align: center; border: 1px solid #dddddd">
-
-					<thead>
-
-						<tr>
-
-							<th colspan="2"
-
-								style="background-color: #eeeeee; text-align: center;">게시판
-
-								글쓰기 양식</th>
-
-						</tr>
-
-					</thead>
-
-					<tbody>
-
-						<tr>
-
-							<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50"/></td>
-
-						</tr>
-
-						<tr>
-
-							<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height: 350px;"></textarea></td>
-
-						</tr>
-
-					</tbody>
 
 				</table>	
 
@@ -235,7 +155,6 @@ body {
 
 		</div>
 
-	</div>
 
 
 	

@@ -221,8 +221,8 @@ body {
 			<ul>
 				<li><a href="bbs.jsp">토론</a></li>
 				<li><a href="">커뮤니티</a></li>
-				<li><a href="">주제 신청</a></li>
-				<li><a href="">랭킹</a>
+				<li><a href="Topic.jsp">주제 신청</a></li>
+				<li><a href="chart.jsp">랭킹</a>
 				<li>
 				<li><a href="competition_info.jsp">토론 대회</a>
 				<li>

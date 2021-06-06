@@ -31,19 +31,15 @@ body {
 
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-
 		//page loads...
 		$(".tab_content").hide();
 		$("ul.tabs li:first").addClass("active").show();
 		$(".tab_content:first").show();
-
 		//Click Event
 		$("ul.tabs li").click(function() {
-
 			$("ul.tabs li").removeClass("active");
 			$(this).addClass("active");
 			$(".tab_content").hide();
-
 			var activeTab = $(this).find("a").attr("href");
 			$(activeTab).fadeIn();
 			return false;
@@ -59,7 +55,6 @@ body {
 	            $('.board').css('visibility', 'hidden');
 	         }
 	      });
-
 	      $('#spreadBtn01').click(function() {
 	         if ($("#hiddenList01").is(":visible")) {
 	            $("#spreadBtn01").toggleClass("spread1 spread2");
@@ -69,7 +64,6 @@ body {
 	            $("#hiddenList01").slideDown();
 	         }
 	      });
-
 	      $('#spreadBtn02').click(function() {
 	         if ($("#hiddenList02").is(":visible")) {
 	            $("#spreadBtn02").toggleClass("spread1 spread2");
@@ -79,7 +73,6 @@ body {
 	            $("#hiddenList02").slideDown();
 	         }
 	      });
-
 	      $('#spreadBtn03').click(function() {
 	         if ($("#hiddenList03").is(":visible")) {
 	            $("#spreadBtn03").toggleClass("spread1 spread2");
@@ -89,7 +82,6 @@ body {
 	            $("#hiddenList03").slideDown();
 	         }
 	      });
-
 	});
 </script>
 
@@ -99,33 +91,19 @@ body {
 <body>
 
 <%
-
 			//로긴한사람이라면	 userID라는 변수에 해당 아이디가 담기고 그렇지 않으면 null값
-
 			String userID = null;
-
 			if (session.getAttribute("userID") != null) {
-
 				userID = (String) session.getAttribute("userID");
-
 	
-
 			}
-
 	
-
 			int pageNumber = 1; //기본 페이지 넘버
-
 	
-
 			//페이지넘버값이 있을때
-
 			if (request.getParameter("pageNumber") != null) {
-
 				pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-
 			}
-
 		%>
 
 	<div class="header">
@@ -161,8 +139,8 @@ body {
 			<ul>
 				<li><a href="bbs.jsp">토론</a></li>
 				<li><a href="">커뮤니티</a></li>
-				<li><a href="">주제 신청</a></li>
-				<li><a href="">랭킹</a>
+				<li><a href="Topic.jsp">주제 신청</a></li>
+				<li><a href="chart.jsp">랭킹</a>
 				<li>
 				<li><a href="competition_info.jsp">토론 대회</a>
 				<li>
@@ -223,8 +201,8 @@ body {
 
 
 			<div style="text-align: right">
-				<ul2> <li2> <a href="write.jsp">글쓰기1&nbsp</a></li2> <li2>
-				<a href="">글쓰기2&nbsp</a></li2> <li2> <a href="">글쓰기3&nbsp</a></li2> <br />
+				<ul2> <li2> <a href="write.jsp">글쓰기</a></li2> <li2>
+				
 				<br />
 				</ul2>
 			</div>
@@ -262,13 +240,9 @@ body {
 					<tbody>
 
 						<%
-
 							BbsDAO bbsDAO = new BbsDAO();
-
 							ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-
 							for (int i = 0; i < list.size(); i++) {
-
 						%>
 
 						<tr>
@@ -280,7 +254,6 @@ body {
 							<td><%=list.get(i).getUserID()%></td>
 
 							<td><%=list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시"
-
 							+ list.get(i).getBbsDate().substring(14, 16) + "분"%></td>
 
 						</tr>
@@ -288,9 +261,7 @@ body {
 	
 
 						<%
-
 							}
-
 						%>
 
 	
@@ -302,9 +273,7 @@ body {
 				<!-- 페이지 넘기기 -->
 
 				<%
-
 					if (pageNumber != 1) {
-
 				%>
 
 				<a href="bbs.jsp?pageNumber=<%=pageNumber - 1%>"
@@ -312,11 +281,8 @@ body {
 					class="btn btn-success btn-arrow-left">이전</a>
 
 				<%
-
 					}
-
 					if (bbsDAO.nextPage(pageNumber)) {
-
 				%>
 
 				<a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>"
@@ -324,9 +290,7 @@ body {
 					class="btn btn-success btn-arrow-left">다음</a>
 
 				<%
-
 					}
-
 				%>
 
 	
@@ -336,31 +300,24 @@ body {
 				<!-- 회원만넘어가도록 -->
 
 				<%
-
 					//if logined userID라는 변수에 해당 아이디가 담기고 if not null
-
 					if (session.getAttribute("userID") != null) {
-
 				%>
 
 				<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
 
 				<%
-
 					} else {
-
 				%>
 
 				<button class="btn btn-primary pull-right"
 
-					onclick="if(confirm('로그인 하세요'))location.href='login.jsp';"
+					onclick="if(confirm('로그인 하세요'))location.href='bbs.jsp';"
 
 					type="button">글쓰기</button>
 
 				<%
-
 					}
-
 				%>
 
 	

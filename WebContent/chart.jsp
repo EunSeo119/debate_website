@@ -28,7 +28,6 @@ body {
         ["Gold", 19, "gold"],
         ["Platinum", 2, "color: #e5e4e2"]
       ]);
-
       var view = new google.visualization.DataView(data);
       view.setColumns([0, 1,
                        { calc: "stringify",
@@ -36,7 +35,6 @@ body {
                          type: "string",
                          role: "annotation" },
                        2]);
-
       var options = {
         title: "Density of Precious Metals, in g/cm^3",
         width: 600,
@@ -88,8 +86,8 @@ body {
 			<ul>
 				<li><a href="bbs.jsp">토론</a></li>
 				<li><a href="">커뮤니티</a></li>
-				<li><a href="">주제 신청</a></li>
-				<li><a href="">랭킹</a>
+				<li><a href="Topic.jsp">주제 신청</a></li>
+				<li><a href="chart.jsp">랭킹</a>
 				<li>
 				<li><a href="competition_info.jsp">토론 대회</a>
 				<li>

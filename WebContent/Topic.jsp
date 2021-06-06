@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,28 +14,6 @@ body {
 	font-size: 0.8em;
 }
 </style>
-
-
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-
-<script type="text/javascript" charset="utf-8">
-	$(document).ready(function() {
-		//page loads...
-		$(".tab_content").hide();
-		$("ul.tabs li:first").addClass("active").show();
-		$(".tab_content:first").show();
-		//Click Event
-		$("ul.tabs li").click(function() {
-			$("ul.tabs li").removeClass("active");
-			$(this).addClass("active");
-			$(".tab_content").hide();
-			var activeTab = $(this).find("a").attr("href");
-			$(activeTab).fadeIn();
-			return false;
-		});
-	});
-</script>
 
 </head>
 
@@ -82,36 +61,126 @@ body {
 		</div>
 	</div>
 
-	<br />
-	<div class="main_content">
-	<div class = "content_wrap" style="margin: 0 auto; float:left;">
-	<div class="hot_content">
-	<ul>
 	
-	</ul>
-	</div>
-	
-	<div class ="guide">
-	<p> 사용 방법 </p>
-	<p>1. 회원가입을 통해 로그인을합니다.</p>
-	<p>2. 홈 위쪽메뉴를 통해 토론을 진행 할 수 있습니다.</p>
-	<p>3. 토론탭을 누르시면 화면 왼쪽에 토론 정렬메뉴를 통해 토론주제를 쉽게 찾을 수 있습니다.</p>
-	<p>4. 진행하고있는 토론대회에 참여를 할 수 있습니다.</p>
-	<p>5. 토론진행을 열심히하면 토론랭킹에 등재됩니다.</p>
-	<p>--------------------------메뉴설명--------------------------</p>
-	<p>토론 : 현재 진행되고있는 토론에 참여하거나 토론글을 직접 작성할 수 있습니다.</p>
-	<p>커뮤니티 : 유저들이 자유롭게 의견을 나눌 수 있는 곳 입니다.</p>
-	<p>주제신청 : 유저들이 토론하고싶은 주제가 토론을 하기에 적합한지 의견을 나눌 수 있는 곳 입니다.</p>
-	<p>랭킹 : 유저들의 토론랭킹을 볼 수 있는 곳입니다.</p>
-	<p>토론대회 : 현재 진행하고있는 토론 대회를 알려줍니다.</p>
-	
-	</div>
-	</div>
-	<br />
-	<br />
-	<div style="width: 20%; float: right; box-sizing: border-box; ">
 
-		<table style="height: 400px; border-color: gray; width: 250px;"
+	<br />
+	
+	<div align="right"
+               style="float: left; width: 10%; height: 409px; border: 2px solid orange; border-radius: 1em; position: relative; top: 0px; left: 46px; text-align: left; padding-top: 15px; padding-bottom: 10px; padding-left: 19px;">
+
+               <span style="cursor: pointer;" class="spread1" id="spreadBtn01">카테고리</span>
+               <ul id="hiddenList01" class="example01" style="display: none;">
+                  <li><a href="#">정치</a></li>
+                  <li><a href="#">경제</a></li>
+                  <li><a href="#">과학</a></li>
+                  <li><a href="#">환경</a></li>
+               </ul>
+
+               <br /> <br /> <span style="cursor: pointer;" class="spread1"
+                  id="spreadBtn02">ooo</span>
+               <ul id="hiddenList02" class="example01" style="display: none;">
+                  <li><a href="#">...</a></li>
+                  <li><a href="#">...</a></li>
+                  <li><a href="#">...</a></li>
+                  <li><a href="#">..</a></li>
+                  <li><a href="#">..</a></li>
+               </ul>
+
+               <br /> <br /> <span style="cursor: pointer;" class="spread1"
+                  id="spreadBtn03">ooo</span>
+               <ul id="hiddenList03" class="example01" style="display: none;">
+                  <li><a href="#">..</a></li>
+                  <li><a href="#">..</a></li>
+                  <li><a href="#">..</a></li>
+               </ul>
+
+               <br /> <br />
+            </div>
+            
+
+            <div id="wrapper" style="float: left;
+    width: 60%;
+    position: relative;
+    box-sizing: border-box;
+    left: 100px;">
+
+               <div class="nav_ul">
+
+                  <p style="text-align: center;">토론 주제 신청</p>
+
+               </div>
+
+               <div class="parent10.1">
+
+                  <hr align="center" style="border: dashed 0.5px grey;">
+
+
+
+
+
+               </div>
+               
+
+
+	<div class="container">
+
+		<div class="row">
+
+			<form method="post" action="writeAction.jsp">
+            <table width="500" border="3" bordercolor="lightgray" align="center">
+
+						  
+   <font size="6" color="gray">글쓰기</font>
+    <tr>
+                 제 목
+             </tr>
+                <input name="board_subject" type="text" size="70" maxlength="100" value=""/>
+             
+        <tr>
+            <td id="title">
+                내 용
+            </td>
+            <td>
+                <textarea name="board_content" cols="72" rows="20"></textarea>            
+            </td>        
+        </tr>
+
+
+				</table>	
+
+				<input type="submit" class="btn btn-primary pull-right" value="글쓰기" />
+
+			</form>
+
+		</div>
+
+
+
+	
+
+
+
+
+
+
+
+	<!-- 애니매이션 담당 JQUERY -->
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+	<!-- 부트스트랩 JS  -->
+
+	<script src="js/bootstrap.js"></script>
+	
+	<br />
+	<br />
+	<div style="float: right;
+    width: 0%;
+    position: relative;
+    box-sizing: border-box;
+    bottom: 170px;">
+
+		<table style="height: 400px; border-color: gold; width: 250px;"
 			border="orange" width="170">
 			<tbody>
 				<tr>
@@ -192,3 +261,4 @@ body {
 	</div>
 
 </body>
+</html>

@@ -14,7 +14,7 @@
 
 	request.setCharacterEncoding("UTF-8");
 
-	response.setContentType("text/html; charset=UTF-8"); //set으로쓰는습관들이세오.
+	response.setContentType("text/html; charset=UTF-8"); 
 
 %>
 
@@ -70,7 +70,7 @@
 
 			script.println("alert('로그인을 하세요.')");
 
-			script.println("location.href = 'login.jsp'");
+			script.println("location.href = 'write.jsp'");
 
 			script.println("</script>");
 
