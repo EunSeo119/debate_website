@@ -1,26 +1,25 @@
 <%@page import="javax.security.auth.callback.ConfirmationCallback"%>
 
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
-		pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter"%>
 
-	<%@ page import="java.io.PrintWriter"%>
+<%@ page import="bbs.BbsDAO"%>
 
-	<%@ page import="bbs.BbsDAO"%>
+<%@ page import="bbs.Bbs"%>
 
-	<%@ page import="bbs.Bbs"%>
+<%@ page import="java.util.ArrayList"%>
 
-	<%@ page import="java.util.ArrayList"%>
-	
-	
-	<%@ page import="bbs2.Bbs2DAO"%>
 
-	<%@ page import="bbs2.Bbs2"%>
-	
+<%@ page import="bbs2.Bbs2DAO"%>
+
+<%@ page import="bbs2.Bbs2"%>
 
 
 
-	
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,49 +34,50 @@ body {
 }
 </style>
 
+<%
+	int bbsID2 = Integer.parseInt(request.getParameter("bbsID"));
+	Bbs2DAO bbs2DAO2 = new Bbs2DAO();
+	ArrayList<Bbs2> list2 = bbs2DAO2.getVote(bbsID2);
+%>
 
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-	
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
-
       function drawChart() {
-
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
           
-          ['찬성', 7],
-          ['반대',    2]
+          //['찬성', 7],
+          //['반대',    2]
+          
+          <% for (int i = 0; i < list2.size(); i++) { %>
+          ['<%= list2.get(i).getVoteItem() %>', <%= list2.get(i).getVoteCount() %>],
+		  <%}%>          
         ]);
-
         var options = {
           title: '웹소과제하기'
         };
-
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
         chart.draw(data, options);
       }
     </script>
 
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-
 		//page loads...
 		$(".tab_content").hide();
 		$("ul.tabs li:first").addClass("active").show();
 		$(".tab_content:first").show();
-
 		//Click Event
 		$("ul.tabs li").click(function() {
-
 			$("ul.tabs li").removeClass("active");
 			$(this).addClass("active");
 			$(".tab_content").hide();
-
 			var activeTab = $(this).find("a").attr("href");
 			$(activeTab).fadeIn();
 			return false;
@@ -93,7 +93,6 @@ body {
 	            $('.board').css('visibility', 'hidden');
 	         }
 	      });
-
 	      $('#spreadBtn01').click(function() {
 	         if ($("#hiddenList01").is(":visible")) {
 	            $("#spreadBtn01").toggleClass("spread1 spread2");
@@ -103,7 +102,6 @@ body {
 	            $("#hiddenList01").slideDown();
 	         }
 	      });
-
 	      $('#spreadBtn02').click(function() {
 	         if ($("#hiddenList02").is(":visible")) {
 	            $("#spreadBtn02").toggleClass("spread1 spread2");
@@ -113,7 +111,6 @@ body {
 	            $("#hiddenList02").slideDown();
 	         }
 	      });
-
 	      $('#spreadBtn03').click(function() {
 	         if ($("#hiddenList03").is(":visible")) {
 	            $("#spreadBtn03").toggleClass("spread1 spread2");
@@ -123,7 +120,6 @@ body {
 	            $("#hiddenList03").slideDown();
 	         }
 	      });
-
 	});
 </script>
 
@@ -132,73 +128,47 @@ body {
 
 <body>
 
-<%
-
+	<%
 			
-
 	
-
 			int pageNumber = 1; //기본 페이지 넘버
-
 	
-
 			//페이지넘버값이 있을때
-
 			if (request.getParameter("pageNumber") != null) {
-
 				pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-
 			}
 			
 			//로긴한사람이라면	 userID라는 변수에 해당 아이디가 담기고 그렇지 않으면 null값
-
 			String userID = null;
-
 			if (session.getAttribute("userID") != null) {
-
 				userID = (String) session.getAttribute("userID");
-
 		
-
 			}
-
 			int bbsID = 0;
-
 			if (request.getParameter("bbsID") != null) {
-
 				bbsID = Integer.parseInt(request.getParameter("bbsID"));
-
 			}
-
 			if (bbsID == 0) {
-
 				PrintWriter script = response.getWriter();
-
 				script.println("<script>");
-
 				script.println("alert('유효하지 않은 글 입니다.')");
-
 				script.println("location.href = 'bbs.jsp'");
-
 				script.println("</script>");
-
 			}
-
 			Bbs bbs = new BbsDAO().getBbs(bbsID);
-
 		%>
 
 	<div class="header">
 		<div class="header_wrap">
-			<div class="title">s
-				<a href="main.jsp">
-				<span style="font-size: 25px; font-weight: bold; color: red;">토</span>
-				<span style="font-size: 20px">요일은 </span> <span
+			<div class="title">
+				s <a href="main.jsp"> <span
+					style="font-size: 25px; font-weight: bold; color: red;">토</span> <span
+					style="font-size: 20px">요일은 </span> <span
 					style="font-size: 25px; font-weight: bold; color: red;">마</span> <span
 					style="font-size: 20px">주앉아 </span> <span
 					style="font-size: 25px; font-weight: bold; color: red;">토</span> <span
 					style="font-size: 20px">론하자</span>
-					</a>
+				</a>
 			</div>
 			<div class="serch"
 				style="position: relative; top: 10px; left: 132px;">
@@ -220,7 +190,7 @@ body {
 		<div class="nav_wrap">
 			<ul>
 				<li><a href="bbs.jsp">토론</a></li>
-				<li><a href="">커뮤니티</a></li>
+				<li><a href="community.jsp">커뮤니티</a></li>
 				<li><a href="Topic.jsp">주제 신청</a></li>
 				<li><a href="chart.jsp">랭킹</a>
 				<li>
@@ -295,27 +265,26 @@ body {
 
 		<!-- 게시판 -->
 
-	<div class="container">
+		<div class="container">
 
-		<div class="row">
+			<div class="row">
 
 				<table class="table table-striped"
-
-					style="text-align: center; border: 1px solid #dddddd">
+					style="text-align: center; border: 1px solid #dddddd; width: 900px;">
 
 					<thead>
 
-						
-						
+
+
 						<tr>
 
 							<th colspan="3"
-
-								style="background-color: #eeeeee; text-align: center;">글 보기 </th>
+								style="background-color: #eeeeee; text-align: center;">글 보기
+							</th>
 
 						</tr>
-						
-						
+
+
 
 					</thead>
 
@@ -323,7 +292,7 @@ body {
 
 						<tr>
 
-							<td style="width: 20%;"> 글 제목 </td>
+							<td style="width: 20%;">글 제목</td>
 
 							<td colspan="2"><%= bbs.getBbsTitle() %></td>
 
@@ -331,27 +300,26 @@ body {
 
 						<tr>
 
-							<td>작성자</td>	
+							<td>작성자</td>
 
 							<td colspan="2"><%= bbs.getUserID() %></td>
 
 						</tr>
-						
-						
+
+
 
 						<tr>
 
-							<td>작성일</td>	
+							<td>작성일</td>
 
 							<td colspan="2"><%= bbs.getBbsDate().substring(0, 11) + bbs.getBbsDate().substring(11, 13) + "시"
-
 							+ bbs.getBbsDate().substring(14, 16) + "분"%></td>
 
 						</tr>
 
-						<tr>
+						<tr style="height: 300px">
 
-							<td>내용</td>	
+							<td>내용</td>
 
 							<td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs.getBbsContent() %></td>
 
@@ -360,52 +328,47 @@ body {
 
 					</tbody>
 
-				</table>	
+				</table>
 
-				<a href = "bbs.jsp" class="btn btn-primary">목록</a>
+				<a href="bbs.jsp" class="btn btn-primary">목록</a>
 
-				
 
-				
+			</div>
 
-				<%
 
+			<%
 				//글작성자 본인일시 수정 삭제 가능 
-
 					if(userID != null && userID.equals(bbs.getUserID())){
-
 				%>
 
-						<a href="update.jsp?bbsID=<%= bbs.getUserID() %>" class="btn btn-primary">수정</a>
+			<a href="update.jsp?bbsID=<%= bbs.getUserID() %>"
+				class="btn btn-primary">수정</a> <a
+				href="delete.jsp?bbsID=<%= bbs.getUserID() %>"
+				class="btn btn-primary">삭제</a>
 
-						<a href="delete.jsp?bbsID=<%= bbs.getUserID() %>" class="btn btn-primary">삭제</a>
-
-				<%					
-
+			<%					
 					}
-
 				%>
-				
-				
-				
-				
-				<!-- 찬성 반대 표시 차틍으ㅡㅡ으 -->
-				
-				
-				<div id="piechart" style="width: 300px; height: 200px;"></div>
 
-				
-<form method="post" action="re_writeAction.jsp">
+
+
+
+			<!-- 찬성 반대 표시 차틍으ㅡㅡ으 -->
+
+
+			<div id="piechart" style="width: 300px; height: 200px;"></div>
+
+
+			<form method="post" action="re_writeAction.jsp">
 
 				<table class="table table-striped"
-
-					style="text-align: center; border: 1px solid #dddddd">
+					style="text-align: center; border: 1px solid #dddddd; height: 100px; width: 900px;">
 
 					<thead>
 
 						<tr>
 
-							
+
 
 						</tr>
 
@@ -415,258 +378,233 @@ body {
 
 						<tr>
 
-							<td><input type="text" class="form-control" placeholder="찬성 혹은 반대" name="bbs2Title" maxlength="50"/></td>
+							<td><input type="text" class="form-control"
+								placeholder="찬성 혹은 반대" name="bbs2Title" maxlength="50" /></td>
 
 						</tr>
-						
-						<tr>
-
-							<td><textarea class="form-control" placeholder="댓글내용" name="bbs2Content" maxlength="2048" style="height: 350px;"></textarea></td>
-
-						</tr>
-
-						
-
-					</tbody>
-
-				</table>	
-
-				<input type="submit" class="btn btn-primary pull-right" value="댓글쓰기" />
-
-			</form>
-
-	
-
-	<!-- 댓글 보기ㅣㅣ기기기기기ㅣㄱㄱ -->
-
-		<div class="container">
-
-			<div class="row">
-
-				<table class="table table-striped"
-
-					style="text-align: center; border: 1px solid #dddddd">
-
-					<thead>
 
 						<tr>
 
-							<th style="background-color: #eeeeee; text-align: center;">번호</th>
-
-							<th style="background-color: #eeeeee; text-align: center;">찬성 혹은 반대</th>
-							
-							<th style="background-color: #eeeeee; text-align: center;">댓글</th>
-
-							<th style="background-color: #eeeeee; text-align: center;">작성자</th>
-
-							<th style="background-color: #eeeeee; text-align: center;">작성일</th>
+							<td><textarea class="form-control" placeholder="댓글내용"
+									name="bbs2Content" maxlength="2048"
+									style="height: 20px; margin: 0px; width: 400px; width: 850px;"></textarea></td>
 
 						</tr>
 
-					</thead>
 
-					<tbody>
-
-						<%
-
-							Bbs2DAO bbs2DAO = new Bbs2DAO();
-
-							ArrayList<Bbs2> list = bbs2DAO.getList(pageNumber);
-
-							for (int i = 0; i < list.size(); i++) {
-
-						%>
-
-						<tr>
-
-							<td><%=list.get(i).getBbs2ID()%></td>
-
-							<td><a href="view.jsp?bbs2ID=<%=list.get(i).getBbs2ID()%>"><%=list.get(i).getBbs2Title()%></a></td>
-							
-							<td><a href="view.jsp?bbs2ID=<%=list.get(i).getBbs2ID()%>"><%=list.get(i).getBbs2Content()%></a></td>
-
-							<td><%=list.get(i).getUserID()%></td>
-
-							<td><%=list.get(i).getBbs2Date().substring(0, 11) + list.get(i).getBbs2Date().substring(11, 13) + "시"
-
-							+ list.get(i).getBbs2Date().substring(14, 16) + "분"%></td>
-
-						</tr>
-
-	
-
-						<%
-
-							}
-
-						%>
-
-	
 
 					</tbody>
 
 				</table>
 
-				<!-- 페이지 넘기기 -->
+				<input type="submit" class="btn btn-primary pull-right" value="댓글쓰기" />
 
-				<%
+			</form>
 
+
+
+			<!-- 댓글 보기ㅣㅣ기기기기기ㅣㄱㄱ -->
+
+			<div class="container">
+
+				<div class="row">
+
+					<table class="table table-striped"
+						style="text-align: center; border: 1px solid #dddddd; width: 900px;">
+
+						<thead>
+
+							<tr>
+
+								<th style="background-color: #eeeeee; text-align: center;">번호</th>
+
+								<th style="background-color: #eeeeee; text-align: center;">찬성
+									혹은 반대</th>
+
+								<th style="background-color: #eeeeee; text-align: center;">댓글</th>
+
+								<th style="background-color: #eeeeee; text-align: center;">작성자</th>
+
+								<th style="background-color: #eeeeee; text-align: center;">작성일</th>
+
+							</tr>
+
+						</thead>
+
+						<tbody>
+
+							<%
+							Bbs2DAO bbs2DAO = new Bbs2DAO();
+							ArrayList<Bbs2> list = bbs2DAO.getList(pageNumber);
+							for (int i = 0; i < list.size(); i++) {
+						%>
+
+							<tr>
+
+								<td><%=list.get(i).getBbs2ID()%></td>
+
+								<td><a href="view.jsp?bbs2ID=<%=list.get(i).getBbs2ID()%>"><%=list.get(i).getBbs2Title()%></a></td>
+
+								<td><a href="view.jsp?bbs2ID=<%=list.get(i).getBbs2ID()%>"><%=list.get(i).getBbs2Content()%></a></td>
+
+								<td><%=list.get(i).getUserID()%></td>
+
+								<td><%=list.get(i).getBbs2Date().substring(0, 11) + list.get(i).getBbs2Date().substring(11, 13) + "시"
+							+ list.get(i).getBbs2Date().substring(14, 16) + "분"%></td>
+
+							</tr>
+
+
+
+							<%
+							}
+						%>
+
+
+
+						</tbody>
+
+					</table>
+
+					<!-- 페이지 넘기기 -->
+
+					<%
 					if (pageNumber != 1) {
-
 				%>
 
-				<a href="bbs.jsp?pageNumber=<%=pageNumber - 1%>"
+					<a href="bbs.jsp?pageNumber=<%=pageNumber - 1%>"
+						class="btn btn-success btn-arrow-left">이전</a>
 
-					class="btn btn-success btn-arrow-left">이전</a>
-
-				<%
-
+					<%
 					}
-
 					if (bbs2DAO.nextPage(pageNumber)) {
-
 				%>
 
-				<a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>"
+					<a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>"
+						class="btn btn-success btn-arrow-left">다음</a>
 
-					class="btn btn-success btn-arrow-left">다음</a>
-
-				<%
-
+					<%
 					}
-
 				%>
 
-				<!-- 회원만넘어가도록 -->
+					<!-- 회원만넘어가도록 -->
 
-				<%
-
+					<%
 					//if logined userID라는 변수에 해당 아이디가 담기고 if not null
-
 					if (session.getAttribute("userID") != null) {
-
 				%>
 
-				<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+					<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
 
-				<%
-
+					<%
 					} else {
-
 				%>
 
-				<button class="btn btn-primary pull-right"
+					<button class="btn btn-primary pull-right"
+						onclick="if(confirm('로그인 하세요'))location.href='login.jsp';"
+						type="button">글쓰기</button>
 
-					onclick="if(confirm('로그인 하세요'))location.href='login.jsp';"
-
-					type="button">글쓰기</button>
-
-				<%
-
+					<%
 					}
-
 				%>
 
-	
+
+
+				</div>
 
 			</div>
 
-		</div>
 
 
 
 
+			<!-- 애니매이션 담당 JQUERY -->
 
-		<!-- 애니매이션 담당 JQUERY -->
+			<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+			<!-- 부트스트랩 JS  -->
 
-		<!-- 부트스트랩 JS  -->
+			<script src="js/bootstrap.js"></script>
 
-		<script src="js/bootstrap.js"></script>
+			<br /> <br />
+			<div
+				style="float: right; width: 0%; position: relative; box-sizing: border-box; bottom: 170px; left: 50px">
 
-		<br /> <br />
-		<div
-			style="float: right; width: 0%; position: relative; box-sizing: border-box; bottom: 170px; left:50px">
+				<table style="height: 400px; border-color: gray; width: 250px;"
+					border="orange" width="170">
+					<tbody>
+						<tr>
+							<td style="width: 160.8px;">&nbsp;
+								<div class="user_info" style="position: relative; top: -150px;">
 
-			<table style="height: 400px; border-color: gray; width: 250px;"
-				border="orange" width="170">
-				<tbody>
-					<tr>
-						<td style="width: 160.8px;">&nbsp;
-							<div class="user_info" style="position: relative; top: -150px;">
-
-								<%
+									<%
 								if (session.getAttribute("userID") != null) {
 									userID = (String) session.getAttribute("userID");
 							%>
 
-								<div id="id01">
+									<div id="id01">
 
-									<form class="modal-content animate" action="login2.jsp"
-										method="post">
+										<form class="modal-content animate" action="login2.jsp"
+											method="post">
 
 
 
-										<div class="container">
-											<h2 align="center"><%=userID%>님이 로그인 되었습니다.
-											</h2>
-											<a href="logout.jsp">로그아웃</a>
+											<div class="container">
+												<h2 align="center"><%=userID%>님이 로그인 되었습니다.
+												</h2>
+												<a href="logout.jsp">로그아웃</a>
 
-										</div>
-										<label> <span id="registerLink"> <a
-												href="./register.html"> 회원가입</a>
-										</span>
-										</label>
+											</div>
+											<label> <span id="registerLink"> <a
+													href="./register.html"> 회원가입</a>
+											</span>
+											</label>
 
-									</form>
-								</div>
-								<%
+										</form>
+									</div>
+									<%
 								} else {
 							%>
-								<div id="id01">
+									<div id="id01">
 
-									<form class="modal-content animate" action="login2.jsp"
-										method="post" style="position: relative; top: 100px;">
+										<form class="modal-content animate" action="login2.jsp"
+											method="post" style="position: relative; top: 100px;">
 
-										<div class="imgcontainer">
-											<img src="./image/my_page.png" alt="unlock" class="unlock">
-											<h2>로그인 해 주세요</h2>
+											<div class="imgcontainer">
+												<img src="./image/my_page.png" alt="unlock" class="unlock">
+												<h2>로그인 해 주세요</h2>
+											</div>
+
+											<<div class="container">
+										<label for="userNameOrEmail"><b>사용자 이름</b></label> <input
+											type="text" style="margin-top: 5px" placeholder="이름" name="userName"
+											required> <br /> <label for="password" style="margin-top: 10px"><b>비밀번호</b></label>
+										<input type="password" style="margin-top: 5px" placeholder="비밀번호"
+											name="password" required> <br />
+										<div style="display: flex; margin-left: 0px">
+										<label style="margin-top: 10px; margin-right: 65px"> <span id="registerLink"> <a href="./register.html"> 회원가입</a></span></label>
+										<button type="submit" style="height: auto; margin-top: 10px">로그인</button>
 										</div>
+									</label>
 
-										<div class="container">
-											<label for="userNameOrEmail"><b>사용자 이름</b></label> <input
-												type="text" placeholder="이름을 입력하여 주세요" name="userName"
-												required> <br /> <label for="password"><b>비밀번호</b></label>
-											<input type="password" placeholder="비밀번호를 입력하여 주세요"
-												name="password" required> <br />
-											<button type="submit">로그인</button>
-											<br />
-										</div>
-										<label> <span id="registerLink"> <a
-												href="./register.html"> 회원가입</a>
-										</span>
-										</label>
-
-									</form>
-								</div>
-								<%
+										</form>
+									</div>
+									<%
 								}
 							%>
 
 
 
-							</div>
-						</td>
+								</div>
+							</td>
 
-					</tr>
+						</tr>
 
-				</tbody>
-			</table>
+					</tbody>
+				</table>
 
 
+			</div>
 		</div>
-	</div>
-
 </body>
 </html>

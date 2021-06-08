@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ page import="java.io.PrintWriter"%>
+<%@ page import="bbs.BbsDAO"%>
+<%@ page import="bbs.Bbs"%>
+
+<%@ page import="bbs2.Bbs2DAO"%>
+<%@ page import="bbs2.Bbs2"%>
+<%@ page import="java.util.ArrayList"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +23,11 @@ body {
 }
 </style>
 
+<%
+	BbsDAO bbsDAO = new BbsDAO();
+	ArrayList<Bbs> list = bbsDAO.getRank();
+	
+%>
 
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
@@ -23,10 +36,14 @@ body {
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ["Element", "Density", { role: "style" } ],
-        ["Copper", 9, "#b87333"],
-        ["Silver", 10, "silver"],
-        ["Gold", 19, "gold"],
-        ["Platinum", 2, "color: #e5e4e2"]
+        //["Copper", 9, "#b87333"],
+        //["Silver", 10, "silver"],
+        //["Gold", 19, "gold"],
+        //["Platinum", 2, "color: #e5e4e2"]
+        
+        <% for (int i = 0; i < list.size(); i++) { %>
+        ['<%= list.get(i).getItem() %>', <%= list.get(i).getCount() %>, "#b87333" ],
+		  <%}%>         
       ]);
       var view = new google.visualization.DataView(data);
       view.setColumns([0, 1,
@@ -36,7 +53,7 @@ body {
                          role: "annotation" },
                        2]);
       var options = {
-        title: "Density of Precious Metals, in g/cm^3",
+        title: "토론왕",
         width: 600,
         height: 400,
         bar: {groupWidth: "95%"},
@@ -46,6 +63,49 @@ body {
       chart.draw(view, options);
   }
   </script>
+  
+  
+  <%
+	Bbs2DAO bbs2DAO = new Bbs2DAO();
+	ArrayList<Bbs2> list2 = bbs2DAO.getRank2();
+	
+%>
+  
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Element", "Density", { role: "style" } ],
+        //["Copper", 9, "#b87333"],
+        //["Silver", 10, "silver"],
+        //["Gold", 19, "gold"],
+        //["Platinum", 2, "color: #e5e4e2"]
+        
+        <% for (int i = 0; i < list2.size(); i++) { %>
+        ['<%= list2.get(i).getItem2() %>', <%= list2.get(i).getCount2() %>, "#e5e4e2" ],
+		  <%}%>         
+      ]);
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+      var options = {
+        title: "댓글왕",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values2"));
+      chart.draw(view, options);
+  }
+  </script>
+  
 
 	
 
@@ -86,8 +146,8 @@ body {
 			<ul>
 				<li><a href="bbs.jsp">토론</a></li>
 				<li><a href="">커뮤니티</a></li>
-				<li><a href="Topic.jsp">주제 신청</a></li>
-				<li><a href="chart.jsp">랭킹</a>
+				<li><a href="">주제 신청</a></li>
+				<li><a href="">랭킹</a>
 				<li>
 				<li><a href="competition_info.jsp">토론 대회</a>
 				<li>
@@ -128,7 +188,12 @@ body {
 		
 		<div>오늘의 토론왕</div>
 
- <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+ <div id="columnchart_values" style="width: 900px;"></div>
+ 
+ <br/><br/><br/>
+ <div>오늘의 댓글왕</div>
+
+ <div id="columnchart_values2" style="width: 900px; height: 300px;"></div>
 
 
 		<br /> <br />

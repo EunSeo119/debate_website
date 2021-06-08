@@ -1,16 +1,15 @@
 <%@page import="javax.security.auth.callback.ConfirmationCallback"%>
 
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
-		pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter"%>
 
-	<%@ page import="java.io.PrintWriter"%>
+<%@ page import="bbs.BbsDAO"%>
 
-	<%@ page import="bbs.BbsDAO"%>
+<%@ page import="bbs.Bbs"%>
 
-	<%@ page import="bbs.Bbs"%>
-
-	<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,44 +43,43 @@ body {
 			$(activeTab).fadeIn();
 			return false;
 		});
-		
 		/*왼쪽메뉴만들기*/
-	      $('.more').click(function() {
-	         if ($('.more').hasClass('more')) {
-	            $('.more').addClass('close').removeClass('more');
-	            $('.board').css('visibility', 'visible');
-	         } else if ($('.close').hasClass('close')) {
-	            $('.close').addClass('more').removeClass('close');
-	            $('.board').css('visibility', 'hidden');
-	         }
-	      });
-	      $('#spreadBtn01').click(function() {
-	         if ($("#hiddenList01").is(":visible")) {
-	            $("#spreadBtn01").toggleClass("spread1 spread2");
-	            $("#hiddenList01").slideUp();
-	         } else {
-	            $("#spreadBtn01").toggleClass("spread2 spread1");
-	            $("#hiddenList01").slideDown();
-	         }
-	      });
-	      $('#spreadBtn02').click(function() {
-	         if ($("#hiddenList02").is(":visible")) {
-	            $("#spreadBtn02").toggleClass("spread1 spread2");
-	            $("#hiddenList02").slideUp();
-	         } else {
-	            $("#spreadBtn02").toggleClass("spread2 spread1");
-	            $("#hiddenList02").slideDown();
-	         }
-	      });
-	      $('#spreadBtn03').click(function() {
-	         if ($("#hiddenList03").is(":visible")) {
-	            $("#spreadBtn03").toggleClass("spread1 spread2");
-	            $("#hiddenList03").slideUp();
-	         } else {
-	            $("#spreadBtn03").toggleClass("spread2 spread1");
-	            $("#hiddenList03").slideDown();
-	         }
-	      });
+		$('.more').click(function() {
+			if ($('.more').hasClass('more')) {
+				$('.more').addClass('close').removeClass('more');
+				$('.board').css('visibility', 'visible');
+			} else if ($('.close').hasClass('close')) {
+				$('.close').addClass('more').removeClass('close');
+				$('.board').css('visibility', 'hidden');
+			}
+		});
+		$('#spreadBtn01').click(function() {
+			if ($("#hiddenList01").is(":visible")) {
+				$("#spreadBtn01").toggleClass("spread1 spread2");
+				$("#hiddenList01").slideUp();
+			} else {
+				$("#spreadBtn01").toggleClass("spread2 spread1");
+				$("#hiddenList01").slideDown();
+			}
+		});
+		$('#spreadBtn02').click(function() {
+			if ($("#hiddenList02").is(":visible")) {
+				$("#spreadBtn02").toggleClass("spread1 spread2");
+				$("#hiddenList02").slideUp();
+			} else {
+				$("#spreadBtn02").toggleClass("spread2 spread1");
+				$("#hiddenList02").slideDown();
+			}
+		});
+		$('#spreadBtn03').click(function() {
+			if ($("#hiddenList03").is(":visible")) {
+				$("#spreadBtn03").toggleClass("spread1 spread2");
+				$("#hiddenList03").slideUp();
+			} else {
+				$("#spreadBtn03").toggleClass("spread2 spread1");
+				$("#hiddenList03").slideDown();
+			}
+		});
 	});
 </script>
 
@@ -90,33 +88,30 @@ body {
 
 <body>
 
-<%
-			//로긴한사람이라면	 userID라는 변수에 해당 아이디가 담기고 그렇지 않으면 null값
-			String userID = null;
-			if (session.getAttribute("userID") != null) {
-				userID = (String) session.getAttribute("userID");
-	
-			}
-	
-			int pageNumber = 1; //기본 페이지 넘버
-	
-			//페이지넘버값이 있을때
-			if (request.getParameter("pageNumber") != null) {
-				pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-			}
-		%>
+	<%
+		//로긴한사람이라면	 userID라는 변수에 해당 아이디가 담기고 그렇지 않으면 null값
+		String userID = null;
+		if (session.getAttribute("userID") != null) {
+			userID = (String) session.getAttribute("userID");
+		}
+		int pageNumber = 1; //기본 페이지 넘버
+		//페이지넘버값이 있을때
+		if (request.getParameter("pageNumber") != null) {
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		}
+	%>
 
 	<div class="header">
 		<div class="header_wrap">
 			<div class="title">
-				<a href="main.jsp">
-				<span style="font-size: 25px; font-weight: bold; color: red;">토</span>
-				<span style="font-size: 20px">요일은 </span> <span
+				<a href="main.jsp"> <span
+					style="font-size: 25px; font-weight: bold; color: red;">토</span> <span
+					style="font-size: 20px">요일은 </span> <span
 					style="font-size: 25px; font-weight: bold; color: red;">마</span> <span
 					style="font-size: 20px">주앉아 </span> <span
 					style="font-size: 25px; font-weight: bold; color: red;">토</span> <span
 					style="font-size: 20px">론하자</span>
-					</a>
+				</a>
 			</div>
 			<div class="serch"
 				style="position: relative; top: 10px; left: 132px;">
@@ -138,7 +133,7 @@ body {
 		<div class="nav_wrap">
 			<ul>
 				<li><a href="bbs.jsp">토론</a></li>
-				<li><a href="">커뮤니티</a></li>
+				<li><a href="community.jsp">커뮤니티</a></li>
 				<li><a href="Topic.jsp">주제 신청</a></li>
 				<li><a href="chart.jsp">랭킹</a>
 				<li>
@@ -162,26 +157,6 @@ body {
 			<li><a href="#">과학</a></li>
 			<li><a href="#">환경</a></li>
 		</ul>
-
-		<br /> <br /> <span style="cursor: pointer;" class="spread1"
-			id="spreadBtn02">ooo</span>
-		<ul id="hiddenList02" class="example01" style="display: none;">
-			<li><a href="#">...</a></li>
-			<li><a href="#">...</a></li>
-			<li><a href="#">...</a></li>
-			<li><a href="#">..</a></li>
-			<li><a href="#">..</a></li>
-		</ul>
-
-		<br /> <br /> <span style="cursor: pointer;" class="spread1"
-			id="spreadBtn03">ooo</span>
-		<ul id="hiddenList03" class="example01" style="display: none;">
-			<li><a href="#">..</a></li>
-			<li><a href="#">..</a></li>
-			<li><a href="#">..</a></li>
-		</ul>
-
-		<br /> <br />
 	</div>
 
 
@@ -200,26 +175,38 @@ body {
 
 
 
-			<div style="text-align: right">
-				<ul2> <li2> <a href="write.jsp">글쓰기</a></li2> <li2>
-				
-				<br />
-				</ul2>
-			</div>
-
-
 		</div>
 
 
 		<!-- 게시판 -->
 
 		<div class="container">
+				<!-- 회원만넘어가도록 -->
+
+				<%
+					//if logined userID라는 변수에 해당 아이디가 담기고 if not null
+					if (session.getAttribute("userID") != null) {
+				%>
+
+				<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+
+				<%
+					} else {
+				%>
+
+				<button class="btn btn-primary pull-right"
+					onclick="if(confirm('로그인 하세요'))location.href='login.jsp';"
+					type="button" style="float: right; margin: 10px 0 10px 0;">글쓰기</button>
+
+				<%
+					}
+				%>
+
 
 			<div class="row">
 
 				<table class="table table-striped"
-
-					style="text-align: center; border: 1px solid #dddddd">
+					style="text-align: center; border: 1px solid #dddddd; width: 100%;">
 
 					<thead>
 
@@ -254,17 +241,17 @@ body {
 							<td><%=list.get(i).getUserID()%></td>
 
 							<td><%=list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11, 13) + "시"
-							+ list.get(i).getBbsDate().substring(14, 16) + "분"%></td>
+						+ list.get(i).getBbsDate().substring(14, 16) + "분"%></td>
 
 						</tr>
 
-	
+
 
 						<%
 							}
 						%>
 
-	
+
 
 					</tbody>
 
@@ -277,7 +264,6 @@ body {
 				%>
 
 				<a href="bbs.jsp?pageNumber=<%=pageNumber - 1%>"
-
 					class="btn btn-success btn-arrow-left">이전</a>
 
 				<%
@@ -286,41 +272,17 @@ body {
 				%>
 
 				<a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>"
-
 					class="btn btn-success btn-arrow-left">다음</a>
 
 				<%
 					}
 				%>
 
-	
 
-	
 
-				<!-- 회원만넘어가도록 -->
 
-				<%
-					//if logined userID라는 변수에 해당 아이디가 담기고 if not null
-					if (session.getAttribute("userID") != null) {
-				%>
 
-				<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
 
-				<%
-					} else {
-				%>
-
-				<button class="btn btn-primary pull-right"
-
-					onclick="if(confirm('로그인 하세요'))location.href='bbs.jsp';"
-
-					type="button">글쓰기</button>
-
-				<%
-					}
-				%>
-
-	
 
 			</div>
 
@@ -340,7 +302,7 @@ body {
 
 		<br /> <br />
 		<div
-			style="float: right; width: 0%; position: relative; box-sizing: border-box; bottom: 170px; left:50px">
+			style="float: right; width: 0%; position: relative; box-sizing: border-box; bottom: 90px; left: 50px">
 
 			<table style="height: 400px; border-color: gray; width: 250px;"
 				border="orange" width="170">
@@ -350,9 +312,9 @@ body {
 							<div class="user_info" style="position: relative; top: -150px;">
 
 								<%
-								if (session.getAttribute("userID") != null) {
-									userID = (String) session.getAttribute("userID");
-							%>
+									if (session.getAttribute("userID") != null) {
+										userID = (String) session.getAttribute("userID");
+								%>
 
 								<div id="id01">
 
@@ -375,8 +337,8 @@ body {
 									</form>
 								</div>
 								<%
-								} else {
-							%>
+									} else {
+								%>
 								<div id="id01">
 
 									<form class="modal-content animate" action="login2.jsp"
@@ -388,24 +350,22 @@ body {
 										</div>
 
 										<div class="container">
-											<label for="userNameOrEmail"><b>사용자 이름</b></label> <input
-												type="text" placeholder="이름을 입력하여 주세요" name="userName"
-												required> <br /> <label for="password"><b>비밀번호</b></label>
-											<input type="password" placeholder="비밀번호를 입력하여 주세요"
-												name="password" required> <br />
-											<button type="submit">로그인</button>
-											<br />
+										<label for="userNameOrEmail"><b>사용자 이름</b></label> <input
+											type="text" style="margin-top: 5px" placeholder="이름" name="userName"
+											required> <br /> <label for="password" style="margin-top: 10px"><b>비밀번호</b></label>
+										<input type="password" style="margin-top: 5px" placeholder="비밀번호"
+											name="password" required> <br />
+										<div style="display: flex; margin-left: 0px">
+										<label style="margin-top: 10px; margin-right: 65px"> <span id="registerLink"> <a href="./register.html"> 회원가입</a></span></label>
+										<button type="submit" style="height: auto; margin-top: 10px">로그인</button>
 										</div>
-										<label> <span id="registerLink"> <a
-												href="./register.html"> 회원가입</a>
-										</span>
-										</label>
+									</label>
 
 									</form>
 								</div>
 								<%
-								}
-							%>
+									}
+								%>
 
 
 

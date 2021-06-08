@@ -73,7 +73,7 @@ body {
 		<div class="nav_wrap">
 			<ul>
 				<li><a href="bbs.jsp">토론</a></li>
-				<li><a href="">커뮤니티</a></li>
+				<li><a href="community.jsp">커뮤니티</a></li>
 				<li><a href="Topic.jsp">주제 신청</a></li>
 				<li><a href="chart.jsp">랭킹</a><li>
 				<li><a href="competition_info.jsp">토론 대회</a><li>
@@ -87,10 +87,10 @@ body {
 	<div class = "content_wrap" style="margin: 0 auto; float:left;">
 	<div class="hot_content">
 	<ul>
-	
+
 	</ul>
 	</div>
-	
+
 	<div class ="guide">
 	<p> 사용 방법 </p>
 	<p>1. 회원가입을 통해 로그인을합니다.</p>
@@ -104,7 +104,7 @@ body {
 	<p>주제신청 : 유저들이 토론하고싶은 주제가 토론을 하기에 적합한지 의견을 나눌 수 있는 곳 입니다.</p>
 	<p>랭킹 : 유저들의 토론랭킹을 볼 수 있는 곳입니다.</p>
 	<p>토론대회 : 현재 진행하고있는 토론 대회를 알려줍니다.</p>
-	
+
 	</div>
 	</div>
 	<br />
@@ -159,16 +159,14 @@ body {
 
 									<div class="container">
 										<label for="userNameOrEmail"><b>사용자 이름</b></label> <input
-											type="text" placeholder="이름을 입력하여 주세요" name="userName"
-											required> <br /> <label for="password"><b>비밀번호</b></label>
-										<input type="password" placeholder="비밀번호를 입력하여 주세요"
+											type="text" style="margin-top: 5px" placeholder="이름" name="userName"
+											required> <br /> <label for="password" style="margin-top: 10px"><b>비밀번호</b></label>
+										<input type="password" style="margin-top: 5px" placeholder="비밀번호"
 											name="password" required> <br />
-										<button type="submit">로그인</button>
-										<br />
-									</div>
-									<label> <span id="registerLink"> <a
-											href="./register.html"> 회원가입</a>
-									</span>
+										<div style="display: flex; margin-left: 0px">
+										<label style="margin-top: 10px; margin-right: 65px"> <span id="registerLink"> <a href="./register.html"> 회원가입</a></span></label>
+										<button type="submit" style="height: auto; margin-top: 10px">로그인</button>
+										</div>
 									</label>
 
 								</form>
@@ -191,4 +189,4 @@ body {
 	</div>
 	</div>
 
-</body>
+</body> 
